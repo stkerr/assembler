@@ -1,15 +1,19 @@
 %token NOTOKEN NEWLINE 
 
-%token <string_val> WORD LABEL COMMAND REGISTER
+%token <string_val> WORD LABEL COMMAND REGISTER VALUE
 
 %{
 extern "C" int yylex();
 extern "C" int yyerror(const char*);
 #include <stdio.h>
 #define yylex yylex
+
+int memLocation = 0;
+const int sizeOfCommand = 3;
 %}
 
 %union {
+	int value;
 	char* string_val;
 	}
 
@@ -30,6 +34,7 @@ extern "C" int yyerror(const char*);
 	oneline:
 		command args NEWLINE
 		{
+			memLocation += sizeOfCommand;
 		}
 		|
 		NEWLINE
@@ -58,6 +63,11 @@ extern "C" int yyerror(const char*);
 		LABEL
 		{
 			printf("LABEL %s\n", $1);
+		}
+		|
+		VALUE
+		{
+			printf("Value is: %d\n", $1);
 		}
 	;
 %%

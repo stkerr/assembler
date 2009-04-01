@@ -1,5 +1,6 @@
 cc = gcc -g
 CC = g++ -g
+lex=/opt/local/bin/flex
 
 all: assembler
 
@@ -11,7 +12,7 @@ y.tab.o: assem.y
 	$(CC) -c y.tab.c
 
 lex.yy.o: assem.l
-	lex assem.l
+	$(lex) assem.l
 	$(cc) -c lex.yy.c
 
 clean:
