@@ -11,22 +11,25 @@ HDIGIT [0-9a-fA-F]
 
 }
 
+^EXIT$ {
+	return EXIT;
+}
+
+^exit$ {
+	return EXIT;
+}
+
 ^[^ \t\n][^ \t\n]* {
 		yylval.string_val = strdup(yytext);
 		return COMMAND;
 }
 
-r3[0-1] {
+^[^ \t\n]+:$ {
 		yylval.string_val = strdup(yytext);
-		return REGISTER;
+		return NEWLABEL;
 }
 
-r[1-2][0-9] {
-		yylval.string_val = strdup(yytext);
-		return REGISTER;
-}
-
-r[0-9] {
+r[0-3] {
 		yylval.string_val = strdup(yytext);
 		return REGISTER;
 }
