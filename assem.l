@@ -30,7 +30,8 @@ HDIGIT [0-9a-fA-F]
 }
 
 r[0-3] {
-		yylval.string_val = strdup(yytext);
+        char temp = strdup(yytext)[1];
+        yylval.value = temp - '0';
 		return REGISTER;
 }
 

@@ -1,6 +1,6 @@
 cc = gcc -g
 CC = g++ -g
-yacc=$(YACC)
+yacc=bison -g -r all
 lex=$(FLEX)
 
 all: assembler
