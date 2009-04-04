@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
         dup2(fp, 0);
         
         yyparse();
-        
+ 		secondPassNeeded = 0;       
     }
     
     close(fp);

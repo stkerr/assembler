@@ -16,8 +16,8 @@ y.tab.o: assem.y
 	$(CC) -c y.tab.c
 
 lex.yy.o: assem.l
-	$(lex) assem.l
-	$(cc) -c lex.yy.c
+	$(lex) --header-file=assem.l.h assem.l
+	$(cc) -c lex.yy.c 
 
 clean:
 	rm -f lex.yy.c y.tab.c y.tab.h assembler *.o *.tmp *.debug *.acts

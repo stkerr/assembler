@@ -47,7 +47,7 @@ r[0-3] {
 		return VALUE;
 }
 
-[^ \t\n][^ \t\n]* {
+[^ \t\n]+ {
 		yylval.string_val = strdup(yytext);
 		return LABEL;
 }
