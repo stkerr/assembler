@@ -1,4 +1,4 @@
-%token NOTOKEN NEWLINE 
+%token NEWLINE 
 
 %token <value> VALUE
 %token <string_val> WORD LABEL COMMAND REGISTER NEWLABEL EXIT
