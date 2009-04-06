@@ -122,12 +122,7 @@ unsigned int command = 0;
 		;
 	
 	args:
-		args arg
-		|
-	;
-
-	arg:
-		REGISTER
+		REGISTER arg2
 		{
 			int val = 0;
 			if(strcmp($1, "r0") == 0)
@@ -157,6 +152,58 @@ unsigned int command = 0;
 		VALUE
 		{
 			command =  (command << 23) | $1;
+		}
+		|
+		{
+			command =  (command << 23);
+		}
+	;
+
+	arg2:
+		REGISTER REGISTER
+		{
+			int val = 0;
+			if(strcmp($1, "r0") == 0)
+				val = 0;
+			else if(strcmp($1, "r1") == 0)
+				val = 1;
+			else if(strcmp($1, "r2") == 0)
+				val = 2;
+			else if(strcmp($1, "r3") == 0)
+				val = 3;
+			command = (command << 5) | val; 
+
+			if(strcmp($2, "r0") == 0)
+				val = 0;
+			else if(strcmp($2, "r1") == 0)
+				val = 1;
+			else if(strcmp($2, "r2") == 0)
+				val = 2;
+			else if(strcmp($2, "r3") == 0)
+				val = 3;
+			command = (command << 5) | val; 
+		}
+		|
+		LABEL
+		{	
+			int labelVal;
+			for(int i = 0; i < labels.size(); i++)
+			{
+				if((labels[i].name.c_str(), $1) == 0)
+				{
+					labelVal = labels[i].memoryLoc;
+				}
+			}
+			command =  (command << 22) | labelVal;
+		}
+		|
+		VALUE
+		{
+			command =  (command << 23) | $1;
+		}
+		|
+		{
+			command =  (command << 23);
 		}
 	;
 %%
